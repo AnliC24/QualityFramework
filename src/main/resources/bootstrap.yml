@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: tern-framework  #对应文件的业务名称
+  cloud:
+    config:
+      uri: http://127.0.0.1:8760
+      profile: alarm #对应业务名称的profile
+      #label: quality #当配置文件分支名
+  activiti:
+    check-process-definitions: false
