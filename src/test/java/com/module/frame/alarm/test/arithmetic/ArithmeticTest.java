@@ -1,5 +1,7 @@
 package com.module.frame.alarm.test.arithmetic;
 
+import static org.junit.Assert.assertNotEquals;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 import com.eternalinfo.tern.test.arithmetic.factory.ArithmeticFactory;
 import com.eternalinfo.tern.test.examination.DefaultDbObject;
+import com.eternalinfo.tern.test.exception.ExecuteException;
 
 /**
  * @author 王诚沣
@@ -38,13 +41,14 @@ public class ArithmeticTest {
 	}
 	
 	@Test
-	public void testExaminationFactory() throws QualityExecption {
+	public void testExaminationFactory() throws QualityExecption, ExecuteException {
 		DefaultDbObject bean = new DefaultDbObject();
 		ArithmeticFactory.getInstance().creator(bean,TYPE_FACTORY,TYPE_ARITHMETIC);
+		assertNotEquals(bean, bean);
 	}
 	
 	@Test
-	public void testNewDbExecute() throws QualityExecption {
+	public void testNewDbExecute() throws QualityExecption, ExecuteException {
 		ArithmeticFactory.getInstance().creator(TYPE_FACTORY,TEST_NEW_DBEXECUTE);
 	}
 }

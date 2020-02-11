@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.eternalinfo.tern.arithmetic.ArithmeticFactory;
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 import com.eternalinfo.tern.controller.PublicController;
-import com.eternalinfo.tern.examination.beans.DbCheckBean;
 import com.eternalinfo.tern.kit.AjaxResult;
+import com.eternalinfo.tern.test.arithmetic.factory.ArithmeticFactory;
+import com.eternalinfo.tern.test.examination.DefaultDbObject;
+import com.eternalinfo.tern.test.exception.ExecuteException;
 
 /**
  * @author 王诚沣
@@ -72,16 +72,12 @@ public class ArithmeticController extends PublicController {
 	/**
 	 * 	测试
 	 * @throws QualityExecption 
+	 * @throws ExecuteException 
 	 * */
 	@SuppressWarnings("unchecked")
 	@PostMapping("/testIsNotNull")
-	public void testIsNotNull(@RequestBody Map<String,Object> params) throws QualityExecption {
-		try {
-			DbCheckBean dbCheck = new DbCheckBean(params.get("JDBC").toString(),(List<Map<String,Object>>) params.get("CHECK_DMOD_INFO"));
-			Object aObject = ArithmeticFactory.getInstance().creator(dbCheck,params.get("TYPE").toString());
-		} catch (QualityExecption e) {
-			// TODO Auto-generated catch block
-			LOG.info(e.getMessage());
-		}
+	public void testIsNotNull(@RequestBody Map<String,Object> params) throws QualityExecption, ExecuteException {
+		DefaultDbObject bean = new DefaultDbObject(params.get("JDBC").toString(),(List<Map<String,Object>>)params.get("CHECK_DMOD_INFO"));
+		ArithmeticFactory.getInstance().creator(bean,params.get("TYPE_FACTORY").toString(),params.get("TYPE_ARITHMETIC").toString());
 	}
 }
