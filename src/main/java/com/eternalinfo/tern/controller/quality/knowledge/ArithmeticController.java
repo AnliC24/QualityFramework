@@ -1,5 +1,9 @@
 package com.eternalinfo.tern.controller.quality.knowledge;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -73,11 +77,13 @@ public class ArithmeticController extends PublicController {
 	 * 	测试
 	 * @throws QualityExecption 
 	 * @throws ExecuteException 
+	 * @throws IOException 
 	 * */
 	@SuppressWarnings("unchecked")
 	@PostMapping("/testIsNotNull")
-	public void testIsNotNull(@RequestBody Map<String,Object> params) throws QualityExecption, ExecuteException {
+	public void testIsNotNull(@RequestBody Map<String,Object> params) throws QualityExecption, ExecuteException, IOException {
 		DefaultDbObject bean = new DefaultDbObject(params.get("JDBC").toString(),(List<Map<String,Object>>)params.get("CHECK_DMOD_INFO"));
 		ArithmeticFactory.getInstance().creator(bean,params.get("TYPE_FACTORY").toString(),params.get("TYPE_ARITHMETIC").toString());
+		assertEquals(bean, bean);
 	}
 }

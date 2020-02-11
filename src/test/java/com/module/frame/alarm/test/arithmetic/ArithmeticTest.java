@@ -2,6 +2,7 @@ package com.module.frame.alarm.test.arithmetic;
 
 import static org.junit.Assert.assertNotEquals;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -41,14 +42,14 @@ public class ArithmeticTest {
 	}
 	
 	@Test
-	public void testExaminationFactory() throws QualityExecption, ExecuteException {
+	public void testExaminationFactory() throws QualityExecption, ExecuteException, IOException {
 		DefaultDbObject bean = new DefaultDbObject();
 		ArithmeticFactory.getInstance().creator(bean,TYPE_FACTORY,TYPE_ARITHMETIC);
 		assertNotEquals(bean, bean);
 	}
 	
 	@Test
-	public void testNewDbExecute() throws QualityExecption, ExecuteException {
+	public void testNewDbExecute() throws QualityExecption, ExecuteException, IOException {
 		ArithmeticFactory.getInstance().creator(TYPE_FACTORY,TEST_NEW_DBEXECUTE);
 	}
 }
