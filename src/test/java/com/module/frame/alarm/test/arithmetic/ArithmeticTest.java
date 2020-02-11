@@ -21,6 +21,7 @@ import com.eternalinfo.tern.test.arithmetic.integrality.DefaultIsNotNull;
 import com.eternalinfo.tern.test.arithmetic.integrality.IsNotNull;
 import com.eternalinfo.tern.test.arithmetic.integrality.NewIsNotNull;
 import com.eternalinfo.tern.test.arithmetic.integrality.factory.IsNotNullFactory;
+import com.eternalinfo.tern.test.context.ExecuteSqlType;
 import com.eternalinfo.tern.test.context.ResourceUrl;
 import com.eternalinfo.tern.test.examination.DefaultDbObject;
 import com.eternalinfo.tern.test.exception.ExecuteException;
@@ -40,6 +41,7 @@ public class ArithmeticTest {
 	String TYPE_ARITHMETIC = "DefaultIsNotNull";
 	String TEST_NEW_DBEXECUTE = "NewIsNotNull";
 	String TEST_RESOURCE_URL = "com/eternalinfo/tern/test/resource/arithmetic.properties";
+	String TEST_EXECUTE_SQL_TYPE = "defaultIsNotNull";
 	static  List<Map<String, Object>> checkObject = new ArrayList<Map<String,Object>>();
 	
 	static {
@@ -85,5 +87,12 @@ public class ArithmeticTest {
 	public void testResourceUrl() throws QualityExecption {
 		assertNotNull(ResourceUrl.getUrlType(TYPE_FACTORY));
 		assertEquals(ResourceUrl.getUrlType(TYPE_FACTORY),TEST_RESOURCE_URL);
+	}
+	
+	//是否可以进行枚举类默认执行Sql读取
+	@Test
+	public void testExecuteSqlType() throws QualityExecption {
+		assertNotNull(ExecuteSqlType.getSqlType(TYPE_ARITHMETIC));
+		assertEquals(ExecuteSqlType.getSqlType(TYPE_ARITHMETIC),TEST_EXECUTE_SQL_TYPE);
 	}
 }
