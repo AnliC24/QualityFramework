@@ -1,5 +1,6 @@
 package com.eternalinfo.tern.test.arithmetic.factory;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -38,16 +39,16 @@ public  class ArithmeticFactory {
 		return  (Factory) arithmeticPack.get(typeFactory);
 	}
 	
-	public void creator(Examination bean,String typeFactory,String typeArithmetic) throws QualityExecption, ExecuteException {
+	public void creator(Examination bean,String typeFactory,String typeArithmetic) throws QualityExecption, ExecuteException, IOException {
 		doCreator(bean,typeFactory,typeArithmetic);
 	}
 	
-	public void creator(String typeFactory,String typeArithmetic) throws QualityExecption, ExecuteException {
+	public void creator(String typeFactory,String typeArithmetic) throws QualityExecption, ExecuteException, IOException {
 		LOG.warn("检核对象为空");
 		doCreator(null,typeFactory,typeArithmetic);
 	}
 	
-	private void doCreator(Examination bean,String typeFactory,String typeArithmetic) throws QualityExecption, ExecuteException {
+	private void doCreator(Examination bean,String typeFactory,String typeArithmetic) throws QualityExecption, ExecuteException, IOException {
 		Factory factory  = (Factory) arithmeticPack.get(typeFactory);
 		factory.createArithmetic(bean, typeArithmetic);
 	}

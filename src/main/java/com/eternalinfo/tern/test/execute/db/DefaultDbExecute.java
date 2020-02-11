@@ -1,7 +1,10 @@
 package com.eternalinfo.tern.test.execute.db;
 
+import java.io.IOException;
 import java.util.Map;
+import java.util.Properties;
 
+import org.apache.ibatis.io.Resources;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.util.StopWatch;
@@ -25,6 +28,12 @@ public class DefaultDbExecute extends Execute{
 	
 	protected  Logger LOG = LogManager.getLogger(this.getClass());
 	
+	private Properties sqlProperties;
+	
+	private String arithmeticType;
+	
+	private String resourceUrl;
+	
 	private JdbcTemplate jdbc;
 	private String executeSql;
 	private DefaultDbObject executeObject;
@@ -36,17 +45,28 @@ public class DefaultDbExecute extends Execute{
 		return jdbc;
 	}
 	
-	public void setExecuteSql(String sql) {
-		this.executeSql = sql;
+	public void setArithmeticType(String type) {
+		this.arithmeticType = type;
+	}
+	public void setResourceUrl(String url) {
+		this.resourceUrl = url;
 	}
 	
 	public void setDefaultDbObject(Examination bean) {
 		executeObject = (DefaultDbObject)bean;
 	}
-
+	
+	public void setExecuteSql() throws IOException {
+		sqlProperties = Resources.getResourceAsProperties(this.resourceUrl);
+		if(!sqlProperties.containsKey(this.arithmeticType)) {
+			throw new ArithmeticException("请配置默认执行sql,"+"例如:"+this.arithmeticType+"=sql");
+		}
+		executeSql = sqlProperties.getProperty(this.arithmeticType);
+	}
 	
 	@Override
-	public void execute() throws QualityExecption, ExecuteException {
+	public void execute() throws QualityExecption, ExecuteException, IOException {
+		setExecuteSql();
 		this.jdbc = new JdbcTemplate(this.executeObject.getJdbc());
 		executeCore();
 		LOG.info("{"+executeObject.toString()+"} 执行非空检查");
@@ -91,5 +111,8 @@ public class DefaultDbExecute extends Execute{
 			return sqlErrorCount;
 		}).reduce((current,next)->{return current+next;}).get();
 	}
+	
+	
+	
 
 }

@@ -1,5 +1,7 @@
 package com.eternalinfo.tern.test.arithmetic.factory;
 
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +17,6 @@ import com.eternalinfo.tern.test.exception.ExecuteException;
  */
 public abstract class Factory {
 	protected  Logger LOG = LogManager.getLogger(this.getClass());
-	public abstract void createArithmetic(Examination bean,String type) throws QualityExecption, ExecuteException;
+	public abstract void createArithmetic(Examination bean,String type) throws QualityExecption, ExecuteException, IOException;
 	public abstract void remove(String type);
 }

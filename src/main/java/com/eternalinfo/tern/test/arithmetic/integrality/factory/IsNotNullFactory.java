@@ -1,5 +1,6 @@
 package com.eternalinfo.tern.test.arithmetic.integrality.factory;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -37,16 +38,16 @@ public class IsNotNullFactory extends Factory{
 		return factory;
 	}
 	
-	public void createArithmetic(String type) throws QualityExecption, ExecuteException {
+	public void createArithmetic(String type) throws QualityExecption, ExecuteException, IOException {
 		LOG.warn("检核对象为空");
 		doExecute(null,type);
 	}
 	
-	public void createArithmetic(Examination bean,String type) throws QualityExecption, ExecuteException {
+	public void createArithmetic(Examination bean,String type) throws QualityExecption, ExecuteException, IOException {
 		doExecute(bean,type);
 	}
 	
-	private void doExecute(Examination bean,String type) throws QualityExecption, ExecuteException {
+	private void doExecute(Examination bean,String type) throws QualityExecption, ExecuteException, IOException {
 		if(!isNotNullPack.containsKey(type)) {
 			throw new ArithmeticException("非空检查无"+type+"类型算子");
 		}

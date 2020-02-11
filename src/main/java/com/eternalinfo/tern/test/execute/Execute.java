@@ -1,5 +1,7 @@
 package com.eternalinfo.tern.test.execute;
 
+import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,6 +14,6 @@ import com.eternalinfo.tern.test.exception.ExecuteException;
  * */
 public abstract class Execute {
 	protected  Logger LOG = LogManager.getLogger(this.getClass());
-	public abstract void execute() throws QualityExecption, ExecuteException;
+	public abstract void execute() throws QualityExecption, ExecuteException, IOException;
 	
 }
