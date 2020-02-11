@@ -1,6 +1,7 @@
 package com.module.frame.alarm.test.arithmetic;
 
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,6 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 import com.eternalinfo.tern.test.arithmetic.factory.ArithmeticFactory;
+import com.eternalinfo.tern.test.arithmetic.integrality.DefaultIsNotNull;
+import com.eternalinfo.tern.test.arithmetic.integrality.IsNotNull;
+import com.eternalinfo.tern.test.arithmetic.integrality.NewIsNotNull;
+import com.eternalinfo.tern.test.arithmetic.integrality.factory.IsNotNullFactory;
 import com.eternalinfo.tern.test.examination.DefaultDbObject;
 import com.eternalinfo.tern.test.exception.ExecuteException;
 
@@ -41,6 +46,7 @@ public class ArithmeticTest {
 		checkObject.add(aMap);
 	}
 	
+	//是否可以执行对象工厂
 	@Test
 	public void testExaminationFactory() throws QualityExecption, ExecuteException, IOException {
 		DefaultDbObject bean = new DefaultDbObject();
@@ -48,8 +54,26 @@ public class ArithmeticTest {
 		assertNotEquals(bean, bean);
 	}
 	
+	//是否可以执行算子策略
 	@Test
 	public void testNewDbExecute() throws QualityExecption, ExecuteException, IOException {
 		ArithmeticFactory.getInstance().creator(TYPE_FACTORY,TEST_NEW_DBEXECUTE);
+	}
+	
+	//是否可以注入新增算子模块
+	@Test
+	public void testAppendArithmeticIsNotNullFactory() {
+		IsNotNull bean = new NewIsNotNull();
+		IsNotNullFactory.getInstance().registry("newNotNull", bean);
+		assertNotNull(IsNotNullFactory.getInstance().getIsNotNull("newNotNull"));
+	}
+	
+	//是否可以变更算子配置  日志出现检核对象为空  true
+	@Test
+	public void testChangeDefaultSqlIsNotNull() throws QualityExecption, ExecuteException, IOException {
+		DefaultIsNotNull bean = (DefaultIsNotNull)IsNotNullFactory.getInstance().getIsNotNull("DefaultIsNotNull");
+		bean.setSqlType("testIsNotNULL");
+		IsNotNullFactory.getInstance().registry("DefaultIsNotNull", bean);
+		IsNotNullFactory.getInstance().createArithmetic("DefaultIsNotNull");
 	}
 }

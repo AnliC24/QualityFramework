@@ -15,6 +15,8 @@ import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 import com.eternalinfo.tern.controller.PublicController;
 import com.eternalinfo.tern.kit.AjaxResult;
 import com.eternalinfo.tern.test.arithmetic.factory.ArithmeticFactory;
+import com.eternalinfo.tern.test.arithmetic.integrality.DefaultIsNotNull;
+import com.eternalinfo.tern.test.arithmetic.integrality.factory.IsNotNullFactory;
 import com.eternalinfo.tern.test.examination.DefaultDbObject;
 import com.eternalinfo.tern.test.exception.ExecuteException;
 
@@ -86,4 +88,16 @@ public class ArithmeticController extends PublicController {
 		ArithmeticFactory.getInstance().creator(bean,params.get("TYPE_FACTORY").toString(),params.get("TYPE_ARITHMETIC").toString());
 		assertEquals(bean, bean);
 	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/testChangeDefaultSqlIsNotNull")
+	public void testChangeDefaultSqlIsNotNull(@RequestBody Map<String,Object> params) throws QualityExecption, ExecuteException, IOException {
+		DefaultDbObject object = new DefaultDbObject(params.get("JDBC").toString(),(List<Map<String,Object>>)params.get("CHECK_DMOD_INFO"));
+		DefaultIsNotNull bean = (DefaultIsNotNull)IsNotNullFactory.getInstance().getIsNotNull("DefaultIsNotNull");
+		bean.setSqlType("testIsNotNULL");
+		IsNotNullFactory.getInstance().registry("DefaultIsNotNull", bean);
+		IsNotNullFactory.getInstance().createArithmetic(object,"DefaultIsNotNull");
+		assertNotEquals(object, object);
+	}
+	
 }
