@@ -11,6 +11,7 @@ import com.eternalinfo.tern.test.arithmetic.integrality.FileIsNotNull;
 import com.eternalinfo.tern.test.arithmetic.integrality.IsNotNull;
 import com.eternalinfo.tern.test.arithmetic.integrality.NewIsNotNull;
 import com.eternalinfo.tern.test.examination.Examination;
+import com.eternalinfo.tern.test.exception.ExecuteException;
 
 /**
  * @author 王诚沣
@@ -36,16 +37,19 @@ public class IsNotNullFactory extends Factory{
 		return factory;
 	}
 	
-	public void createArithmetic(String type) throws QualityExecption {
+	public void createArithmetic(String type) throws QualityExecption, ExecuteException {
 		LOG.warn("检核对象为空");
 		doExecute(null,type);
 	}
 	
-	public void createArithmetic(Examination bean,String type) throws QualityExecption {
+	public void createArithmetic(Examination bean,String type) throws QualityExecption, ExecuteException {
 		doExecute(bean,type);
 	}
 	
-	private void doExecute(Examination bean,String type) throws QualityExecption {
+	private void doExecute(Examination bean,String type) throws QualityExecption, ExecuteException {
+		if(!isNotNullPack.containsKey(type)) {
+			throw new ArithmeticException("非空检查无"+type+"类型算子");
+		}
 		Arithmetic arithmetic = (Arithmetic) isNotNullPack.get(type);
 		arithmetic.setExamination(bean);
 		arithmetic.execute();
@@ -53,11 +57,11 @@ public class IsNotNullFactory extends Factory{
 
 	@Override
 	public void remove(String type) {
-		this.isNotNullPack.remove(type);
+		isNotNullPack.remove(type);
 	}
 
 	public void registry(String type, IsNotNull arithmetic) {
-		this.isNotNullPack.put(type, arithmetic);
+		isNotNullPack.put(type, arithmetic);
 	}
 	
 }

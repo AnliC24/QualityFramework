@@ -2,6 +2,7 @@ package com.eternalinfo.tern.test.arithmetic.integrality;
 
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 import com.eternalinfo.tern.test.examination.Examination;
+import com.eternalinfo.tern.test.exception.ExecuteException;
 import com.eternalinfo.tern.test.execute.db.DefaultDbExecute;
 import com.eternalinfo.tern.test.execute.factory.ExecuteFactory;
 
@@ -23,7 +24,7 @@ public class DefaultIsNotNull extends IsNotNull{
 	}
 	
 	@Override
-	public void execute() throws QualityExecption {
+	public void execute() throws QualityExecption, ExecuteException {
 		DefaultDbExecute execute = (DefaultDbExecute)ExecuteFactory.getInstance().createExecute(DEFAULT_TYPE_EXECUTE);
 		execute.setExecuteSql(IS_NOT_NULL_SQL);	//执行sql
 		execute.setDefaultDbObject(bean);		//检查对象

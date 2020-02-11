@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 import com.eternalinfo.tern.test.examination.Examination;
+import com.eternalinfo.tern.test.exception.ExecuteException;
 
 /**
  * @author 王诚沣
@@ -14,6 +15,6 @@ import com.eternalinfo.tern.test.examination.Examination;
  */
 public abstract class Factory {
 	protected  Logger LOG = LogManager.getLogger(this.getClass());
-	public abstract void createArithmetic(Examination bean,String type) throws QualityExecption;
+	public abstract void createArithmetic(Examination bean,String type) throws QualityExecption, ExecuteException;
 	public abstract void remove(String type);
 }

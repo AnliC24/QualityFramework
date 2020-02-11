@@ -12,6 +12,7 @@ import com.eternalinfo.tern.arithmetic.utils.SqlCommonUtils;
 import com.eternalinfo.tern.jdbc.JdbcTemplate;
 import com.eternalinfo.tern.test.examination.DefaultDbObject;
 import com.eternalinfo.tern.test.examination.Examination;
+import com.eternalinfo.tern.test.exception.ExecuteException;
 import com.eternalinfo.tern.test.execute.Execute;
 
 /**
@@ -45,13 +46,13 @@ public class DefaultDbExecute extends Execute{
 
 	
 	@Override
-	public void execute() throws QualityExecption {
+	public void execute() throws QualityExecption, ExecuteException {
 		this.jdbc = new JdbcTemplate(this.executeObject.getJdbc());
 		executeCore();
 		LOG.info("{"+executeObject.toString()+"} 执行非空检查");
 	}
 	
-	private void executeCore() throws QualityExecption {
+	private void executeCore() throws QualityExecption, ExecuteException {
 		transVariableToString();
 		executeSql();
 	}
@@ -62,11 +63,11 @@ public class DefaultDbExecute extends Execute{
 		}
 	}
 	
-	private void executeSql() throws QualityExecption {
+	private void executeSql() throws ExecuteException {
 		try {
 			batchExecuteSql(this.jdbc);
 		}catch (Exception e) {
-			throw new QualityExecption("数据源连接失败");
+			throw new ExecuteException("数据源连接失败");
 		}
 	}
 	

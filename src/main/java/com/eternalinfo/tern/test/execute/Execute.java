@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
+import com.eternalinfo.tern.test.exception.ExecuteException;
 
 /**
  * 	@author cfwang
@@ -11,6 +12,6 @@ import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
  * */
 public abstract class Execute {
 	protected  Logger LOG = LogManager.getLogger(this.getClass());
-	public abstract void execute() throws QualityExecption;
+	public abstract void execute() throws QualityExecption, ExecuteException;
 	
 }

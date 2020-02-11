@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 import com.eternalinfo.tern.test.arithmetic.integrality.factory.IsNotNullFactory;
 import com.eternalinfo.tern.test.examination.Examination;
+import com.eternalinfo.tern.test.exception.ExecuteException;
 
 
 /**
@@ -31,28 +32,31 @@ public  class ArithmeticFactory {
 	}
 	
 	public Factory creator(String typeFactory) throws QualityExecption {
+		if(!arithmeticPack.containsKey(typeFactory)) {
+			throw new  ArithmeticException("无"+typeFactory+"类型算子工厂");
+		}
 		return  (Factory) arithmeticPack.get(typeFactory);
 	}
 	
-	public void creator(Examination bean,String typeFactory,String typeArithmetic) throws QualityExecption {
+	public void creator(Examination bean,String typeFactory,String typeArithmetic) throws QualityExecption, ExecuteException {
 		doCreator(bean,typeFactory,typeArithmetic);
 	}
 	
-	public void creator(String typeFactory,String typeArithmetic) throws QualityExecption {
+	public void creator(String typeFactory,String typeArithmetic) throws QualityExecption, ExecuteException {
 		LOG.warn("检核对象为空");
 		doCreator(null,typeFactory,typeArithmetic);
 	}
 	
-	private void doCreator(Examination bean,String typeFactory,String typeArithmetic) throws QualityExecption {
+	private void doCreator(Examination bean,String typeFactory,String typeArithmetic) throws QualityExecption, ExecuteException {
 		Factory factory  = (Factory) arithmeticPack.get(typeFactory);
 		factory.createArithmetic(bean, typeArithmetic);
 	}
 	
 	public void remove(String typeFactory) {
-		this.arithmeticPack.remove(typeFactory);
+		arithmeticPack.remove(typeFactory);
 	}
 	
 	public void registry(String typeFactory,Factory factory) {
-		this.arithmeticPack.put(typeFactory,factory);
+		arithmeticPack.put(typeFactory,factory);
 	}
 }
