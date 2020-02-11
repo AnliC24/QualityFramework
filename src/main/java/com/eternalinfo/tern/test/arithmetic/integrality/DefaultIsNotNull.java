@@ -3,6 +3,7 @@ package com.eternalinfo.tern.test.arithmetic.integrality;
 import java.io.IOException;
 
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
+import com.eternalinfo.tern.test.context.ExecuteSqlType;
 import com.eternalinfo.tern.test.context.ResourceUrl;
 import com.eternalinfo.tern.test.examination.Examination;
 import com.eternalinfo.tern.test.exception.ExecuteException;
@@ -17,9 +18,9 @@ import com.eternalinfo.tern.test.execute.factory.ExecuteFactory;
  */
 public class DefaultIsNotNull extends IsNotNull{
 	
-	private String url = "";
+	private String url;
 	
-	private String sqlType = "defaultIsNotNull";
+	private String sqlType;
 
 	private Examination bean;
 	
@@ -27,6 +28,7 @@ public class DefaultIsNotNull extends IsNotNull{
 
 	public DefaultIsNotNull() throws QualityExecption{
 		this.url = ResourceUrl.getUrlType("IsNotNull");
+		this.sqlType = ExecuteSqlType.getSqlType("DefaultIsNotNull");
 	}
 	
 	public DefaultIsNotNull(String resourceUrl,String sqlType) {
