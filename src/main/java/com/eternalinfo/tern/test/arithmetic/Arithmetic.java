@@ -14,4 +14,6 @@ public interface Arithmetic {
 	void execute() throws QualityExecption, ExecuteException, IOException;
 	
 	void setExamination(Examination bean);
+	
+	void setExecuteStrategy(String strategy);
 }

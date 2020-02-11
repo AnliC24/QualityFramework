@@ -26,5 +26,9 @@ public class NewIsNotNull extends IsNotNull{
 	public void setExamination(Examination bean) {
 		this.bean = bean;
 	}
+
+	@Override
+	public void setExecuteStrategy(String strategy) {
+	}
 	
 }
