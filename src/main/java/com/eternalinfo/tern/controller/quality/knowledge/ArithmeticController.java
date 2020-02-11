@@ -97,7 +97,7 @@ public class ArithmeticController extends PublicController {
 		bean.setSqlType("testIsNotNULL");
 		IsNotNullFactory.getInstance().registry("DefaultIsNotNull", bean);
 		IsNotNullFactory.getInstance().createArithmetic(object,"DefaultIsNotNull");
-		assertNotEquals(object, object);
+		assertEquals(object, object);
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.module.frame.alarm.test.arithmetic;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -20,6 +21,7 @@ import com.eternalinfo.tern.test.arithmetic.integrality.DefaultIsNotNull;
 import com.eternalinfo.tern.test.arithmetic.integrality.IsNotNull;
 import com.eternalinfo.tern.test.arithmetic.integrality.NewIsNotNull;
 import com.eternalinfo.tern.test.arithmetic.integrality.factory.IsNotNullFactory;
+import com.eternalinfo.tern.test.context.ResourceUrl;
 import com.eternalinfo.tern.test.examination.DefaultDbObject;
 import com.eternalinfo.tern.test.exception.ExecuteException;
 
@@ -37,6 +39,7 @@ public class ArithmeticTest {
 	String TYPE_FACTORY = "IsNotNull";
 	String TYPE_ARITHMETIC = "DefaultIsNotNull";
 	String TEST_NEW_DBEXECUTE = "NewIsNotNull";
+	String TEST_RESOURCE_URL = "com/eternalinfo/tern/test/resource/arithmetic.properties";
 	static  List<Map<String, Object>> checkObject = new ArrayList<Map<String,Object>>();
 	
 	static {
@@ -75,5 +78,12 @@ public class ArithmeticTest {
 		bean.setSqlType("testIsNotNULL");
 		IsNotNullFactory.getInstance().registry("DefaultIsNotNull", bean);
 		IsNotNullFactory.getInstance().createArithmetic("DefaultIsNotNull");
+	}
+	
+	//是否可以进行枚举类默认配置读取
+	@Test
+	public void testResourceUrl() throws QualityExecption {
+		assertNotNull(ResourceUrl.getUrlType(TYPE_FACTORY));
+		assertEquals(ResourceUrl.getUrlType(TYPE_FACTORY),TEST_RESOURCE_URL);
 	}
 }
