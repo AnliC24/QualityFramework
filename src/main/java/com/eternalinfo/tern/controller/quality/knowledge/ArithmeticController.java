@@ -73,7 +73,6 @@ public class ArithmeticController extends PublicController {
 		return success().setCode(200).setMessage("算子发布");
 	}
 	
-	
 	/**
 	 * 	测试
 	 * @throws QualityExecption 
@@ -97,6 +96,14 @@ public class ArithmeticController extends PublicController {
 		IsNotNullFactory.getInstance().registry("DefaultIsNotNull", bean);
 		IsNotNullFactory.getInstance().createArithmetic(object,"DefaultIsNotNull");
 		assertEquals(object, object);
+	}
+	
+	@SuppressWarnings("unchecked")
+	@PostMapping("/testDataFormat")
+	public void testDataFormat(@RequestBody Map<String,Object> params) throws QualityExecption, ExecuteException, IOException {
+		DefaultDbObject bean = new DefaultDbObject(params.get("JDBC").toString(),(List<Map<String,Object>>)params.get("CHECK_DMOD_INFO"));
+		ArithmeticFactory.getInstance().creator(bean,params.get("TYPE_FACTORY").toString(),params.get("TYPE_ARITHMETIC").toString());
+		assertEquals(bean, bean);
 	}
 	
 }
