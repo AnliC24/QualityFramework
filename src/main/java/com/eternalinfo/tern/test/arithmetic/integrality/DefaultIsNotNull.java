@@ -18,20 +18,32 @@ public class DefaultIsNotNull extends IsNotNull{
 	
 	private String url = "com/eternalinfo/tern/test/resource/arithmetic.properties";
 	
-	private String ArithmeticType = "defaultIsNotNull";
+	private String sqlType = "defaultIsNotNull";
 
 	private Examination bean;
+	
 	private String DEFAULT_TYPE_EXECUTE = "DefaultDbExecute";  //默认数据源执行策略
 
-	public DefaultIsNotNull() throws QualityExecption {
+	public DefaultIsNotNull(){
 		
+	}
+	
+	public DefaultIsNotNull(String resourceUrl,String sqlType) {
+		url = resourceUrl;
+		this.sqlType = sqlType;
+	}
+	
+	public DefaultIsNotNull(String resourceUrl,String sqlType,Examination bean) {
+		url = resourceUrl;
+		this.sqlType = sqlType;
+		this.bean = bean;
 	}
 	
 	@Override
 	public void execute() throws QualityExecption, ExecuteException, IOException {
 		DefaultDbExecute execute = (DefaultDbExecute)ExecuteFactory.getInstance().createExecute(DEFAULT_TYPE_EXECUTE);
 		execute.setResourceUrl(url);
-		execute.setArithmeticType(ArithmeticType);
+		execute.setArithmeticType(sqlType);
 		execute.setDefaultDbObject(bean);		//检查对象
 		execute.execute();
 	}
@@ -39,5 +51,13 @@ public class DefaultIsNotNull extends IsNotNull{
 	@Override
 	public void setExamination(Examination bean) {
 		this.bean = bean;
+	}
+	
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+	public void setSqlType(String sqlType) {
+		this.sqlType = sqlType;
 	}
 }

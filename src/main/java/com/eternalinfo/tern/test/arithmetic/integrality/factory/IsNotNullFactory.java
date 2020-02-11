@@ -25,13 +25,9 @@ public class IsNotNullFactory extends Factory{
 	private static Map<String, IsNotNull> isNotNullPack = new ConcurrentHashMap<String, IsNotNull>();
 	
 	static {
-		try {
-			isNotNullPack.put("DefaultIsNotNull", new DefaultIsNotNull());
-			isNotNullPack.put("FileIsNotNull", new FileIsNotNull());
-			isNotNullPack.put("NewIsNotNull", new NewIsNotNull());
-		} catch (QualityExecption e) {
-			e.printStackTrace();
-		}
+		isNotNullPack.put("DefaultIsNotNull", new DefaultIsNotNull());
+		isNotNullPack.put("FileIsNotNull", new FileIsNotNull());
+		isNotNullPack.put("NewIsNotNull", new NewIsNotNull());
 	}
 	
 	public static IsNotNullFactory getInstance() {
