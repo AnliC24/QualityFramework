@@ -1,7 +1,6 @@
 package com.eternalinfo.tern.controller.quality.knowledge;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 import java.io.IOException;
 import java.util.List;
