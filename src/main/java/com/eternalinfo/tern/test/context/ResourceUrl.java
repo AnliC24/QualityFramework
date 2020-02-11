@@ -4,7 +4,8 @@ import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 
 public enum ResourceUrl {
 
-	IS_NOT_NULL("IsNotNull","com/eternalinfo/tern/test/resource/arithmetic.properties");
+	IS_NOT_NULL("IsNotNull","com/eternalinfo/tern/test/resource/is-not-null.properties"),
+	DATA_FORMAT("DataFormat","com/eternalinfo/tern/test/resource/data-format.properties");
 	
 	private String type;
 	private String url;

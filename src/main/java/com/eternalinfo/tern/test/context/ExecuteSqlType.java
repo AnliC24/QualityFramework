@@ -4,7 +4,8 @@ import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 
 public enum ExecuteSqlType {
 
-	DEFAULT_IS_NOT_NULL("DefaultIsNotNull","defaultIsNotNull");
+	DEFAULT_IS_NOT_NULL("DefaultIsNotNull","defaultIsNotNull"),
+	DEFAULT_DATA_FORMAT("DefaultDataFormat","defaultDataFormat");
 	
 	private String arithmeticName;
 	private String sqlType;

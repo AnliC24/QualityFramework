@@ -69,7 +69,7 @@ public class DefaultDbExecute extends Execute{
 		setExecuteSql();
 		this.jdbc = new JdbcTemplate(this.executeObject.getJdbc());
 		executeCore();
-		LOG.info("{"+executeObject.toString()+"} 执行非空检查");
+		LOG.info("模型:{"+executeObject.toString()+"} 执行检查");
 	}
 	
 	private void executeCore() throws QualityExecption, ExecuteException {

@@ -6,7 +6,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 import com.eternalinfo.tern.test.execute.Execute;
 import com.eternalinfo.tern.test.execute.db.DefaultDbExecute;
-import com.eternalinfo.tern.test.execute.db.NewDbExecute;
 
 
 /**
@@ -20,7 +19,6 @@ public class ExecuteFactory {
 	private static Map<String, Execute> executePack = new ConcurrentHashMap<String, Execute>();
 	static {
 		executePack.put("DefaultDbExecute",new DefaultDbExecute());
-		executePack.put("NewDbExecute", new NewDbExecute());
 	}
 	public static ExecuteFactory getInstance() {
 		return executeFactory;

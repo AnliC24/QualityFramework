@@ -4,7 +4,8 @@ import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 
 public enum ExecuteStrategy {
 	
-	DEFAULT_IS_NOT_NULL("DefaultIsNotNull","DefaultDbExecute");
+	DEFAULT_IS_NOT_NULL("DefaultIsNotNull","DefaultDbExecute"),
+	DEFAULT_DATA_FORMAT("DefaultDataFormat","DefaultDbExecute");
 	
 	private String arithmeticName;
 	private String executeStrategyName;
