@@ -60,4 +60,5 @@ public  class ArithmeticFactory {
 	public void registry(String typeFactory,Factory factory) {
 		arithmeticPack.put(typeFactory,factory);
 	}
+
 }

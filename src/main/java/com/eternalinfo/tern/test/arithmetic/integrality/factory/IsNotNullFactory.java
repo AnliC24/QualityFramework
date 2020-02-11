@@ -10,7 +10,6 @@ import com.eternalinfo.tern.test.arithmetic.factory.Factory;
 import com.eternalinfo.tern.test.arithmetic.integrality.DefaultIsNotNull;
 import com.eternalinfo.tern.test.arithmetic.integrality.FileIsNotNull;
 import com.eternalinfo.tern.test.arithmetic.integrality.IsNotNull;
-import com.eternalinfo.tern.test.arithmetic.integrality.NewIsNotNull;
 import com.eternalinfo.tern.test.examination.Examination;
 import com.eternalinfo.tern.test.exception.ExecuteException;
 
@@ -27,7 +26,6 @@ public class IsNotNullFactory extends Factory{
 	static {
 		isNotNullPack.put("DefaultIsNotNull", new DefaultIsNotNull());
 		isNotNullPack.put("FileIsNotNull", new FileIsNotNull());
-		isNotNullPack.put("NewIsNotNull", new NewIsNotNull());
 	}
 	
 	public static IsNotNullFactory getInstance() {
@@ -59,6 +57,13 @@ public class IsNotNullFactory extends Factory{
 
 	public void registry(String type, IsNotNull arithmetic) {
 		isNotNullPack.put(type, arithmetic);
+	}
+	
+	public IsNotNull getIsNotNull(String type) {
+		if(!isNotNullPack.containsKey(type)) {
+			return null;
+		}
+		return isNotNullPack.get(type);
 	}
 	
 }

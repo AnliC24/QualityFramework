@@ -111,8 +111,4 @@ public class DefaultDbExecute extends Execute{
 			return sqlErrorCount;
 		}).reduce((current,next)->{return current+next;}).get();
 	}
-	
-	
-	
-
 }
