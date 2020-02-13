@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author 王诚沣
  * @下午3:07:45
@@ -13,9 +15,12 @@ import java.util.stream.Collectors;
  */
 public class DefaultDbObject extends Examination{
 	
+	@JsonProperty("JDBC")
 	private String jdbc;
-	private List<Map<String, Object>> check;
 	
+	@JsonProperty("CHECK_DMOD_INFO")
+	private List<Map<String, Object>> check;
+
 	private static String objectName = "DMOD_EN_NAME";
 	
 	public DefaultDbObject() {

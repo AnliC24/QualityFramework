@@ -3,9 +3,6 @@ package com.eternalinfo.tern.controller.quality.knowledge;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +13,7 @@ import com.eternalinfo.tern.kit.AjaxResult;
 import com.eternalinfo.tern.test.arithmetic.factory.ArithmeticFactory;
 import com.eternalinfo.tern.test.arithmetic.integrality.DefaultIsNotNull;
 import com.eternalinfo.tern.test.arithmetic.integrality.factory.IsNotNullFactory;
-import com.eternalinfo.tern.test.examination.DefaultDbObject;
+import com.eternalinfo.tern.test.examination.Examination;
 import com.eternalinfo.tern.test.exception.ExecuteException;
 
 /**
@@ -79,18 +76,14 @@ public class ArithmeticController extends PublicController {
 	 * @throws ExecuteException 
 	 * @throws IOException 
 	 * */
-	@SuppressWarnings("unchecked")
 	@PostMapping("/testIsNotNull")
-	public void testIsNotNull(@RequestBody Map<String,Object> params) throws QualityExecption, ExecuteException, IOException {
-		DefaultDbObject bean = new DefaultDbObject(params.get("JDBC").toString(),(List<Map<String,Object>>)params.get("CHECK_DMOD_INFO"));
-		ArithmeticFactory.getInstance().creator(bean,params.get("TYPE_FACTORY").toString(),params.get("TYPE_ARITHMETIC").toString());
+	public void testIsNotNull(@RequestBody Examination bean) throws QualityExecption, ExecuteException, IOException {
+		ArithmeticFactory.getInstance().creator(bean,bean.getTypeFactory(),bean.getTypeArithmetic());
 		assertEquals(bean, bean);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@PostMapping("/testChangeDefaultSqlIsNotNull")
-	public void testChangeDefaultSqlIsNotNull(@RequestBody Map<String,Object> params) throws QualityExecption, ExecuteException, IOException {
-		DefaultDbObject object = new DefaultDbObject(params.get("JDBC").toString(),(List<Map<String,Object>>)params.get("CHECK_DMOD_INFO"));
+	public void testChangeDefaultSqlIsNotNull(@RequestBody Examination object) throws QualityExecption, ExecuteException, IOException {
 		DefaultIsNotNull bean = (DefaultIsNotNull)IsNotNullFactory.getInstance().getIsNotNull("DefaultIsNotNull");
 		bean.setSqlType("testIsNotNULL");
 		IsNotNullFactory.getInstance().registry("DefaultIsNotNull", bean);
@@ -98,11 +91,9 @@ public class ArithmeticController extends PublicController {
 		assertEquals(object, object);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@PostMapping("/testDataFormat")
-	public void testDataFormat(@RequestBody Map<String,Object> params) throws QualityExecption, ExecuteException, IOException {
-		DefaultDbObject bean = new DefaultDbObject(params.get("JDBC").toString(),(List<Map<String,Object>>)params.get("CHECK_DMOD_INFO"));
-		ArithmeticFactory.getInstance().creator(bean,params.get("TYPE_FACTORY").toString(),params.get("TYPE_ARITHMETIC").toString());
+	public void testDataFormat(@RequestBody Examination bean) throws QualityExecption, ExecuteException, IOException {
+		ArithmeticFactory.getInstance().creator(bean,bean.getTypeFactory(),bean.getTypeArithmetic());
 		assertEquals(bean, bean);
 	}
 	
