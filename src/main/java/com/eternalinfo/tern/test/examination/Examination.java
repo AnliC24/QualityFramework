@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 /**
  * @author 王诚沣
  * @下午3:07:02
- * @description
+ * @description	检核对象
  * @version
  */
 @JsonTypeInfo(

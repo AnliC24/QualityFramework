@@ -17,6 +17,6 @@ import com.eternalinfo.tern.test.exception.ExecuteException;
  */
 public abstract class Factory {
 	protected  Logger LOG = LogManager.getLogger(this.getClass());
-	public abstract void createArithmetic(Examination bean,String type) throws QualityExecption, ExecuteException, IOException;
+	public abstract void createArithmetic(Examination bean) throws QualityExecption, ExecuteException, IOException;
 	public abstract void remove(String type);
 }

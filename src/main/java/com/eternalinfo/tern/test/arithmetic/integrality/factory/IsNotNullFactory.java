@@ -40,18 +40,18 @@ public class IsNotNullFactory extends Factory{
 	
 	public void createArithmetic(String type) throws QualityExecption, ExecuteException, IOException {
 		LOG.warn("检核对象为空");
-		doExecute(null,type);
+		doExecute(null);
 	}
 	
-	public void createArithmetic(Examination bean,String type) throws QualityExecption, ExecuteException, IOException {
-		doExecute(bean,type);
+	public void createArithmetic(Examination bean) throws QualityExecption, ExecuteException, IOException {
+		doExecute(bean);
 	}
 	
-	private void doExecute(Examination bean,String type) throws QualityExecption, ExecuteException, IOException {
-		if(!isNotNullPack.containsKey(type)) {
-			throw new ArithmeticException("非空检查无"+type+"类型算子");
+	private void doExecute(Examination bean) throws QualityExecption, ExecuteException, IOException {
+		if(!isNotNullPack.containsKey(bean.getTypeArithmetic())) {
+			throw new ArithmeticException("非空检查无"+bean.getTypeArithmetic()+"类型算子");
 		}
-		Arithmetic arithmetic = (Arithmetic) isNotNullPack.get(type);
+		Arithmetic arithmetic = (Arithmetic) isNotNullPack.get(bean.getTypeArithmetic());
 		arithmetic.setExamination(bean);
 		arithmetic.execute();
 	}

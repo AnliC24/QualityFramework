@@ -34,12 +34,12 @@ public class DataFormatFactory extends Factory{
 	
 	public void createArithmetic(String type) throws QualityExecption, ExecuteException, IOException {
 		LOG.warn("检核对象为空");
-		doExecute(null,type);
+		doExecute(null);
 	}
 	
 	@Override
-	public void createArithmetic(Examination bean, String type) throws QualityExecption, ExecuteException, IOException {
-		doExecute(bean,type);
+	public void createArithmetic(Examination bean) throws QualityExecption, ExecuteException, IOException {
+		doExecute(bean);
 	}
 
 	@Override
@@ -51,11 +51,11 @@ public class DataFormatFactory extends Factory{
 		return factory;
 	}
 	
-	private void doExecute(Examination bean,String type) throws QualityExecption, ExecuteException, IOException {
-		if(!dataFormatPack.containsKey(type)) {
-			throw new ArithmeticException("数据格式检查无"+type+"类型算子");
+	private void doExecute(Examination bean) throws QualityExecption, ExecuteException, IOException {
+		if(!dataFormatPack.containsKey(bean.getTypeArithmetic())) {
+			throw new ArithmeticException("数据格式检查无"+bean.getTypeArithmetic()+"类型算子");
 		}
-		Arithmetic arithmetic = (Arithmetic) dataFormatPack.get(type);
+		Arithmetic arithmetic = (Arithmetic) dataFormatPack.get(bean.getTypeArithmetic());
 		arithmetic.setExamination(bean);
 		arithmetic.execute();
 	}

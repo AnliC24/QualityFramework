@@ -40,18 +40,16 @@ public  class ArithmeticFactory {
 		return  (Factory) arithmeticPack.get(typeFactory);
 	}
 	
-	public void creator(Examination bean,String typeFactory,String typeArithmetic) throws QualityExecption, ExecuteException, IOException {
-		doCreator(bean,typeFactory,typeArithmetic);
+	public void creator(Examination bean) throws QualityExecption, ExecuteException, IOException {
+		doCreator(bean);
 	}
 	
-	public void creator(String typeFactory,String typeArithmetic) throws QualityExecption, ExecuteException, IOException {
-		LOG.warn("检核对象为空");
-		doCreator(null,typeFactory,typeArithmetic);
-	}
-	
-	private void doCreator(Examination bean,String typeFactory,String typeArithmetic) throws QualityExecption, ExecuteException, IOException {
-		Factory factory  = (Factory) arithmeticPack.get(typeFactory);
-		factory.createArithmetic(bean, typeArithmetic);
+	private void doCreator(Examination bean) throws QualityExecption, ExecuteException, IOException {
+		if(bean == null) {
+			throw new QualityExecption("检核对象为空");
+		}
+		Factory factory  = (Factory) arithmeticPack.get(bean.getTypeFactory());
+		factory.createArithmetic(bean);
 	}
 	
 	public void remove(String typeFactory) {
