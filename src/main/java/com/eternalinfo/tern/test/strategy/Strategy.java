@@ -1,4 +1,4 @@
-package com.eternalinfo.tern.test.execute;
+package com.eternalinfo.tern.test.strategy;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import com.eternalinfo.tern.test.exception.ExecuteException;
  * 	@author cfwang
  *  @time 2020/2/8
  * */
-public abstract class Execute {
+public abstract class Strategy {
 	protected  Logger LOG = LogManager.getLogger(this.getClass());
 	public abstract void execute() throws QualityExecption, ExecuteException, IOException;
 	

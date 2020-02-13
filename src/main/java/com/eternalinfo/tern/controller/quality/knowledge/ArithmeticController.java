@@ -78,7 +78,7 @@ public class ArithmeticController extends PublicController {
 	 * */
 	@PostMapping("/testIsNotNull")
 	public void testIsNotNull(@RequestBody Examination bean) throws QualityExecption, ExecuteException, IOException {
-		ArithmeticFactory.getInstance().creator(bean,bean.getTypeFactory(),bean.getTypeArithmetic());
+		ArithmeticFactory.getInstance().creator(bean);
 		assertEquals(bean, bean);
 	}
 	
@@ -87,13 +87,13 @@ public class ArithmeticController extends PublicController {
 		DefaultIsNotNull bean = (DefaultIsNotNull)IsNotNullFactory.getInstance().getIsNotNull("DefaultIsNotNull");
 		bean.setSqlType("testIsNotNULL");
 		IsNotNullFactory.getInstance().registry("DefaultIsNotNull", bean);
-		IsNotNullFactory.getInstance().createArithmetic(object,"DefaultIsNotNull");
+		IsNotNullFactory.getInstance().createArithmetic(object);
 		assertEquals(object, object);
 	}
 	
 	@PostMapping("/testDataFormat")
 	public void testDataFormat(@RequestBody Examination bean) throws QualityExecption, ExecuteException, IOException {
-		ArithmeticFactory.getInstance().creator(bean,bean.getTypeFactory(),bean.getTypeArithmetic());
+		ArithmeticFactory.getInstance().creator(bean);
 		assertEquals(bean, bean);
 	}
 	

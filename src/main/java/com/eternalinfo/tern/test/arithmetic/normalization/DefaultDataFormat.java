@@ -8,8 +8,6 @@ import com.eternalinfo.tern.test.context.ExecuteStrategy;
 import com.eternalinfo.tern.test.context.ResourceUrl;
 import com.eternalinfo.tern.test.examination.Examination;
 import com.eternalinfo.tern.test.exception.ExecuteException;
-import com.eternalinfo.tern.test.execute.db.DefaultDbExecute;
-import com.eternalinfo.tern.test.execute.factory.ExecuteFactory;
 
 /**
  * @author 王诚沣
@@ -52,11 +50,11 @@ public class DefaultDataFormat extends DataFormat{
 
 	@Override
 	public void execute() throws QualityExecption, ExecuteException, IOException {
-		DefaultDbExecute execute = (DefaultDbExecute)ExecuteFactory.getInstance().createExecute(EXECUTE_STRATEGY);
-		execute.setResourceUrl(url);
-		execute.setArithmeticType(sqlType);
-		execute.setDefaultDbObject(bean);
-		execute.execute();
+//		DefaultDbExecute execute = (DefaultDbExecute)ExecuteFactory.getInstance().createExecute(EXECUTE_STRATEGY);
+//		execute.setResourceUrl(url);
+//		execute.setArithmeticType(sqlType);
+//		execute.setDefaultDbObject(bean);
+//		execute.execute();
 	}
 
 	@Override

@@ -55,15 +55,10 @@ public class ArithmeticTest extends BaseTest{
 	@Test
 	public void testExaminationFactory() throws QualityExecption, ExecuteException, IOException {
 		DefaultDbObject bean = new DefaultDbObject();
-		ArithmeticFactory.getInstance().creator(bean,TYPE_FACTORY,TYPE_ARITHMETIC);
+		ArithmeticFactory.getInstance().creator(bean);
+		bean.setTypeArithmetic(TYPE_ARITHMETIC);
+		bean.setTypeFactory(TYPE_FACTORY);
 		assertNotEquals(bean, bean);
-	}
-	
-	//是否可以执行算子策略
-	@Test
-	@Ignore
-	public void testNewDbExecute() throws QualityExecption, ExecuteException, IOException {
-		ArithmeticFactory.getInstance().creator(TYPE_FACTORY,TEST_NEW_DBEXECUTE);
 	}
 	
 	//是否可以注入新增算子模块

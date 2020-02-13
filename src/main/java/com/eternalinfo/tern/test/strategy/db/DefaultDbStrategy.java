@@ -1,4 +1,4 @@
-package com.eternalinfo.tern.test.execute.db;
+package com.eternalinfo.tern.test.strategy.db;
 
 import java.io.IOException;
 import java.util.Map;
@@ -16,7 +16,7 @@ import com.eternalinfo.tern.jdbc.JdbcTemplate;
 import com.eternalinfo.tern.test.examination.DefaultDbObject;
 import com.eternalinfo.tern.test.examination.Examination;
 import com.eternalinfo.tern.test.exception.ExecuteException;
-import com.eternalinfo.tern.test.execute.Execute;
+import com.eternalinfo.tern.test.strategy.Strategy;
 
 /**
  * @author 王诚沣
@@ -24,7 +24,7 @@ import com.eternalinfo.tern.test.execute.Execute;
  * @description 数据源默认执行策略
  * @version
  */
-public class DefaultDbExecute extends Execute{
+public class DefaultDbStrategy extends Strategy{
 	
 	protected  Logger LOG = LogManager.getLogger(this.getClass());
 	
@@ -39,7 +39,7 @@ public class DefaultDbExecute extends Execute{
 	private DefaultDbObject executeObject;
 	private int sqlErrorCount = 0;
 	
-	public DefaultDbExecute() {}
+	public DefaultDbStrategy() {}
 	
 	public JdbcTemplate getJdbc() {
 		return jdbc;

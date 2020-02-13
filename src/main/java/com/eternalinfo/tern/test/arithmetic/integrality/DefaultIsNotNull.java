@@ -8,8 +8,7 @@ import com.eternalinfo.tern.test.context.ExecuteStrategy;
 import com.eternalinfo.tern.test.context.ResourceUrl;
 import com.eternalinfo.tern.test.examination.Examination;
 import com.eternalinfo.tern.test.exception.ExecuteException;
-import com.eternalinfo.tern.test.execute.db.DefaultDbExecute;
-import com.eternalinfo.tern.test.execute.factory.ExecuteFactory;
+import com.eternalinfo.tern.test.strategy.StrategyFactory;
 
 /**
  * @author 王诚沣
@@ -48,11 +47,11 @@ public class DefaultIsNotNull extends IsNotNull{
 	
 	@Override
 	public void execute() throws QualityExecption, ExecuteException, IOException {
-		DefaultDbExecute execute = (DefaultDbExecute)ExecuteFactory.getInstance().createExecute(EXECUTE_STRATEGY);
-		execute.setResourceUrl(url);
-		execute.setArithmeticType(sqlType);
-		execute.setDefaultDbObject(bean);		//检查对象
-		execute.execute();
+		//DefaultDbExecute object = (DefaultDbExecute)StrategyFactory.getInstance().createExecute(EXECUTE_STRATEGY);
+//		execute.setResourceUrl(url);
+//		execute.setArithmeticType(sqlType);
+//		execute.setDefaultDbObject(bean);		//检查对象
+		//object.execute();
 	}
 
 	@Override

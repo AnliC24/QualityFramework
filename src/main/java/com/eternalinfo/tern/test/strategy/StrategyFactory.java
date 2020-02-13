@@ -1,11 +1,11 @@
-package com.eternalinfo.tern.test.execute.factory;
+package com.eternalinfo.tern.test.strategy;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
-import com.eternalinfo.tern.test.execute.Execute;
-import com.eternalinfo.tern.test.execute.db.DefaultDbExecute;
+import com.eternalinfo.tern.test.strategy.db.DefaultDbStrategy;
+
 
 
 /**
@@ -14,16 +14,16 @@ import com.eternalinfo.tern.test.execute.db.DefaultDbExecute;
  * @description
  * @version
  */
-public class ExecuteFactory {
-	private static ExecuteFactory executeFactory = new ExecuteFactory();
-	private static Map<String, Execute> executePack = new ConcurrentHashMap<String, Execute>();
+public class StrategyFactory {
+	private static StrategyFactory strategyFactory = new StrategyFactory();
+	private static Map<String, Strategy> strategyPack = new ConcurrentHashMap<String, Strategy>();
 	static {
-		executePack.put("DefaultDbExecute",new DefaultDbExecute());
+		strategyPack.put("DefaultDbExecute",new DefaultDbStrategy());
 	}
-	public static ExecuteFactory getInstance() {
-		return executeFactory;
+	public static StrategyFactory getInstance() {
+		return strategyFactory;
 	}
-	public Execute createExecute(String executeType) throws QualityExecption {
-		return executePack.get(executeType);
+	public Strategy createExecute(String executeType) throws QualityExecption {
+		return strategyPack.get(executeType);
 	}
 }
