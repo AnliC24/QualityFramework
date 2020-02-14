@@ -14,7 +14,9 @@ public interface Arithmetic {
 	
 	void execute() throws QualityExecption, ExecuteException, IOException;
 	
-	void setExamination(Examination bean);
+	void setExamination(Examination bean) throws QualityExecption;
 	
-	void setExecuteStrategy(String strategy);
+	void validateExamination(Examination bean) throws QualityExecption;
+	
+	String DEFAULT_VALIDATE_TYPE = "Db";
 }

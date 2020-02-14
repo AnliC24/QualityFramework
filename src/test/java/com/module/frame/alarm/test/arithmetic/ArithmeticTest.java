@@ -70,15 +70,15 @@ public class ArithmeticTest extends BaseTest{
 //		assertNotNull(IsNotNullFactory.getInstance().getIsNotNull("newNotNull"));
 	}
 	
-	//是否可以变更算子配置  日志出现检核对象为空  true
-	@Test
-	@Ignore
-	public void testChangeDefaultSqlIsNotNull() throws QualityExecption, ExecuteException, IOException {
-		DefaultIsNotNull bean = (DefaultIsNotNull)IsNotNullFactory.getInstance().getIsNotNull("DefaultIsNotNull");
-		bean.setSqlType("testIsNotNULL");
-		IsNotNullFactory.getInstance().registry("DefaultIsNotNull", bean);
-		IsNotNullFactory.getInstance().createArithmetic("DefaultIsNotNull");
-	}
+//	//是否可以变更算子配置  日志出现检核对象为空  true
+//	@Test
+//	@Ignore
+//	public void testChangeDefaultSqlIsNotNull() throws QualityExecption, ExecuteException, IOException {
+//		DefaultIsNotNull bean = (DefaultIsNotNull)IsNotNullFactory.getInstance().getIsNotNull("DefaultIsNotNull");
+//		bean.setSqlType("testIsNotNULL");
+//		IsNotNullFactory.getInstance().registry("DefaultIsNotNull", bean);
+//		IsNotNullFactory.getInstance().createArithmetic("DefaultIsNotNull");
+//	}
 	
 	//是否可以进行枚举类默认配置读取
 	@Test

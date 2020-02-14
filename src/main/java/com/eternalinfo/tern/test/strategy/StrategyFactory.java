@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
+import com.eternalinfo.tern.test.exception.ExecuteException;
 import com.eternalinfo.tern.test.strategy.db.DefaultDbStrategy;
 
 
@@ -17,13 +18,27 @@ import com.eternalinfo.tern.test.strategy.db.DefaultDbStrategy;
 public class StrategyFactory {
 	private static StrategyFactory strategyFactory = new StrategyFactory();
 	private static Map<String, Strategy> strategyPack = new ConcurrentHashMap<String, Strategy>();
+	
 	static {
-		strategyPack.put("DefaultDbExecute",new DefaultDbStrategy());
+		strategyPack.put("DefaultDbStrategy",new DefaultDbStrategy());
 	}
+	
 	public static StrategyFactory getInstance() {
 		return strategyFactory;
 	}
-	public Strategy createExecute(String executeType) throws QualityExecption {
-		return strategyPack.get(executeType);
+	
+	public Strategy createStrategy(String strategyName) throws QualityExecption, ExecuteException {
+		if(!strategyPack.containsKey(strategyName)) {
+			throw new ExecuteException("未找到"+strategyName+"类型执行策略");
+		}
+		return strategyPack.get(strategyName);
+	}
+	
+	public void registry(String strategyName,Strategy strategy) {
+		strategyPack.put(strategyName, strategy);
+	}
+	
+	public void remove(String strategyName) {
+		strategyPack.remove(strategyName);
 	}
 }

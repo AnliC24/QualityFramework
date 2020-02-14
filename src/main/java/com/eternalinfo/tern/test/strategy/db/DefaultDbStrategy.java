@@ -30,13 +30,9 @@ public class DefaultDbStrategy extends Strategy{
 	
 	private Properties sqlProperties;
 	
-	private String arithmeticType;
-	
-	private String resourceUrl;
-	
 	private JdbcTemplate jdbc;
 	private String executeSql;
-	private DefaultDbObject executeObject;
+	private DefaultDbObject bean;
 	private int sqlErrorCount = 0;
 	
 	public DefaultDbStrategy() {}
@@ -45,31 +41,21 @@ public class DefaultDbStrategy extends Strategy{
 		return jdbc;
 	}
 	
-	public void setArithmeticType(String type) {
-		this.arithmeticType = type;
-	}
-	public void setResourceUrl(String url) {
-		this.resourceUrl = url;
-	}
-	
-	public void setDefaultDbObject(Examination bean) {
-		executeObject = (DefaultDbObject)bean;
-	}
-	
 	public void setExecuteSql() throws IOException {
-		sqlProperties = Resources.getResourceAsProperties(this.resourceUrl);
-		if(!sqlProperties.containsKey(this.arithmeticType)) {
-			throw new ArithmeticException("请配置默认执行sql,"+"例如:"+this.arithmeticType+"=sql");
+		sqlProperties = Resources.getResourceAsProperties(bean.getResourceUrl());
+		if(!sqlProperties.containsKey(bean.getSqlType())) {
+			throw new ArithmeticException("请配置默认执行sql,"+"例如:"+bean.getSqlType()+"=sql");
 		}
-		executeSql = sqlProperties.getProperty(this.arithmeticType);
+		executeSql = sqlProperties.getProperty(bean.getSqlType());
 	}
 	
 	@Override
-	public void execute() throws QualityExecption, ExecuteException, IOException {
+	public void execute(Examination bean) throws QualityExecption, ExecuteException, IOException {
+		this.bean = (DefaultDbObject)bean;
 		setExecuteSql();
-		this.jdbc = new JdbcTemplate(this.executeObject.getJdbc());
+		this.jdbc = new JdbcTemplate(this.bean.getJdbc());
 		executeCore();
-		LOG.info("模型:{"+executeObject.toString()+"} 执行检查");
+		LOG.info("模型:{"+bean.toString()+"} 执行检查");
 	}
 	
 	private void executeCore() throws QualityExecption, ExecuteException {
@@ -78,7 +64,7 @@ public class DefaultDbStrategy extends Strategy{
 	}
 	
 	private void transVariableToString() throws QualityExecption {
-		for(Map<String, Object> item:executeObject.getCheck()) {
+		for(Map<String, Object> item:bean.getCheck()) {
 			item.put("executeSql", QualityUtil.transVariableToString(executeSql, item));
 		}
 	}
@@ -92,7 +78,7 @@ public class DefaultDbStrategy extends Strategy{
 	}
 	
 	private int batchExecuteSql(JdbcTemplate jdbc) {
-		return executeObject.getCheck().stream().map(item->{	
+		return bean.getCheck().stream().map(item->{	
 			StopWatch time = new StopWatch();
 			try {
 				time.start();

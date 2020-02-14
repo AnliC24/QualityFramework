@@ -4,10 +4,12 @@ import java.io.IOException;
 
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 import com.eternalinfo.tern.test.context.ExecuteSqlType;
-import com.eternalinfo.tern.test.context.ExecuteStrategy;
 import com.eternalinfo.tern.test.context.ResourceUrl;
+import com.eternalinfo.tern.test.examination.DefaultDbObject;
 import com.eternalinfo.tern.test.examination.Examination;
 import com.eternalinfo.tern.test.exception.ExecuteException;
+import com.eternalinfo.tern.test.strategy.Strategy;
+import com.eternalinfo.tern.test.strategy.StrategyFactory;
 
 /**
  * @author 王诚沣
@@ -17,54 +19,42 @@ import com.eternalinfo.tern.test.exception.ExecuteException;
  */
 public class DefaultDataFormat extends DataFormat{
 	
-	private String url;
-	
-	private String sqlType;
 	
 	private Examination bean; 
 	
-	private String EXECUTE_STRATEGY;
-	
 	public DefaultDataFormat() throws QualityExecption {
-		this.url = ResourceUrl.getUrlType("DataFormat");
-		this.sqlType = ExecuteSqlType.getSqlType("DefaultDataFormat");
-		this.EXECUTE_STRATEGY = ExecuteStrategy.getExecuteStrategy("DefaultIsNotNull");
+		this.bean = new DefaultDbObject();
 	}
 	
-	public String getUrl() {
-		return url;
+	public DefaultDataFormat(Examination bean) throws QualityExecption {
+		this.bean = bean;
 	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-
-	public String getSqlType() {
-		return sqlType;
-	}
-
-	public void setSqlType(String sqlType) {
-		this.sqlType = sqlType;
+	
+	@Override
+	public void setExamination(Examination bean) throws QualityExecption {
+		this.bean = bean;
+		validateExamination(bean);
 	}
 
 	@Override
 	public void execute() throws QualityExecption, ExecuteException, IOException {
-//		DefaultDbExecute execute = (DefaultDbExecute)ExecuteFactory.getInstance().createExecute(EXECUTE_STRATEGY);
-//		execute.setResourceUrl(url);
-//		execute.setArithmeticType(sqlType);
-//		execute.setDefaultDbObject(bean);
-//		execute.execute();
+		Strategy strategy = StrategyFactory.getInstance().createStrategy(bean.getStrategy());
+		strategy.execute(bean);
 	}
 
 	@Override
-	public void setExamination(Examination bean) {
-		this.bean = bean;
+	public void validateExamination(Examination bean) throws QualityExecption {
+		if(bean.getStrategy().length()<=0)bean.setStrategy(DEFAULT_STRATEGY);
+		if(bean.getClass().getName().contains(DEFAULT_VALIDATE_TYPE)||
+				bean.getClass().getName().contains(DEFAULT_VALIDATE_TYPE.toLowerCase())||
+				bean.getClass().getName().contains(DEFAULT_VALIDATE_TYPE.toUpperCase()))
+		{
+			if(bean.getResourceUrl().length()<=0) {
+				bean.setResourceUrl(ResourceUrl.getUrlType(DEFAULT_RESOURCE_URL));
+			}
+			if(bean.getSqlType().length()<=0) {
+				bean.setSqlType(ExecuteSqlType.getSqlType(DEFAULT_SQL_TYPE));
+			}
+		}
 	}
-
-	@Override
-	public void setExecuteStrategy(String strategy) {
-		this.EXECUTE_STRATEGY = strategy;
-	}
-	
 }

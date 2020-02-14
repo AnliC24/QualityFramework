@@ -27,6 +27,38 @@ public abstract class Examination {
 	
 	@JsonProperty("TYPE_ARITHMETIC")
 	public String typeArithmetic;
+	
+	
+	public String resourceUrl = "";
+	 
+	public String sqlType = "";
+	
+	@JsonProperty("STRATEGY")
+	public String strategy = "";
+
+	public String getResourceUrl() {
+		return resourceUrl;
+	}
+
+	public void setResourceUrl(String resourceUrl) {
+		this.resourceUrl = resourceUrl;
+	}
+
+	public String getSqlType() {
+		return sqlType;
+	}
+
+	public void setSqlType(String sqlType) {
+		this.sqlType = sqlType;
+	}
+
+	public String getStrategy() {
+		return strategy;
+	}
+
+	public void setStrategy(String strategy) {
+		this.strategy = strategy;
+	}
 
 	public String getTypeFactory() {
 		return typeFactory;

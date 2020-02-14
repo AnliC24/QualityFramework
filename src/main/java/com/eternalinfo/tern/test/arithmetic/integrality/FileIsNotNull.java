@@ -22,8 +22,9 @@ public class FileIsNotNull extends IsNotNull{
 	public void setExamination(Examination bean) {
 		this.bean = bean;
 	}
+	
 	@Override
-	public void setExecuteStrategy(String strategy) {
+	public void validateExamination(Examination bean) throws QualityExecption {
 	}
 	
 }

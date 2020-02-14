@@ -20,6 +20,7 @@ public class DefaultDbObject extends Examination{
 	
 	@JsonProperty("CHECK_DMOD_INFO")
 	private List<Map<String, Object>> check;
+	
 
 	private static String objectName = "DMOD_EN_NAME";
 	
@@ -48,7 +49,7 @@ public class DefaultDbObject extends Examination{
 	public void setCheck(List<Map<String, Object>> check) {
 		this.check = check;
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.join(",", check.stream().map(item->{ 

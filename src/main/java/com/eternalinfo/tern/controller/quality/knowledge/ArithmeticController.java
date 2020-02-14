@@ -11,8 +11,6 @@ import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 import com.eternalinfo.tern.controller.PublicController;
 import com.eternalinfo.tern.kit.AjaxResult;
 import com.eternalinfo.tern.test.arithmetic.factory.ArithmeticFactory;
-import com.eternalinfo.tern.test.arithmetic.integrality.DefaultIsNotNull;
-import com.eternalinfo.tern.test.arithmetic.integrality.factory.IsNotNullFactory;
 import com.eternalinfo.tern.test.examination.Examination;
 import com.eternalinfo.tern.test.exception.ExecuteException;
 
@@ -84,11 +82,7 @@ public class ArithmeticController extends PublicController {
 	
 	@PostMapping("/testChangeDefaultSqlIsNotNull")
 	public void testChangeDefaultSqlIsNotNull(@RequestBody Examination object) throws QualityExecption, ExecuteException, IOException {
-		DefaultIsNotNull bean = (DefaultIsNotNull)IsNotNullFactory.getInstance().getIsNotNull("DefaultIsNotNull");
-		bean.setSqlType("testIsNotNULL");
-		IsNotNullFactory.getInstance().registry("DefaultIsNotNull", bean);
-		IsNotNullFactory.getInstance().createArithmetic(object);
-		assertEquals(object, object);
+	
 	}
 	
 	@PostMapping("/testDataFormat")

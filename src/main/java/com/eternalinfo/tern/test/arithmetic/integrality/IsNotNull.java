@@ -13,4 +13,10 @@ import com.eternalinfo.tern.test.arithmetic.Arithmetic;
  */
 public abstract class IsNotNull implements Arithmetic{
 	protected  Logger LOG = LogManager.getLogger(this.getClass());
+	
+	String DEFAULT_STRATEGY = "DefaultIsNotNull";
+	
+	String DEFAULT_RESOURCE_URL = "IsNotNull";
+	
+	String DEFAULT_SQL_TYPE = "DefaultIsNotNull";
 }

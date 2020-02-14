@@ -8,8 +8,8 @@ import com.eternalinfo.tern.test.context.ExecuteStrategy;
 import com.eternalinfo.tern.test.context.ResourceUrl;
 import com.eternalinfo.tern.test.examination.Examination;
 import com.eternalinfo.tern.test.exception.ExecuteException;
+import com.eternalinfo.tern.test.strategy.Strategy;
 import com.eternalinfo.tern.test.strategy.StrategyFactory;
-
 /**
  * @author 王诚沣
  * @下午2:21:53
@@ -18,57 +18,58 @@ import com.eternalinfo.tern.test.strategy.StrategyFactory;
  */
 public class DefaultIsNotNull extends IsNotNull{
 	
-	private String url;
-	
-	private String sqlType;
 
 	private Examination bean;
 	
-	private String EXECUTE_STRATEGY;  //默认数据源执行策略
-
+	
 	public DefaultIsNotNull() throws QualityExecption{
-		this.url = ResourceUrl.getUrlType("IsNotNull");
-		this.sqlType = ExecuteSqlType.getSqlType("DefaultIsNotNull");
-		this.EXECUTE_STRATEGY = ExecuteStrategy.getExecuteStrategy("DefaultIsNotNull");
 	}
 	
+	public DefaultIsNotNull(Examination bean) throws QualityExecption {
+		this.bean = bean;
+	} 
+	
 	public DefaultIsNotNull(String resourceUrl,String sqlType) throws QualityExecption {
-		url = resourceUrl;
-		this.sqlType = sqlType;
-		this.EXECUTE_STRATEGY = ExecuteStrategy.getExecuteStrategy("DefaultIsNotNull");
+		if(bean == null) {
+			throw new ArithmeticException("检核对象为空,无法进行算子检核");
+		}
+		bean.setResourceUrl(resourceUrl);
+		bean.setSqlType(sqlType);
+		bean.setStrategy(ExecuteStrategy.getExecuteStrategy("DefaultIsNotNull"));
 	}
 	
 	public DefaultIsNotNull(String resourceUrl,String sqlType,Examination bean) throws QualityExecption {
-		url = resourceUrl;
-		this.sqlType = sqlType;
 		this.bean = bean;
-		this.EXECUTE_STRATEGY = ExecuteStrategy.getExecuteStrategy("DefaultIsNotNull");
+		bean.setResourceUrl(resourceUrl);
+		bean.setSqlType(sqlType);
+		bean.setStrategy(ExecuteStrategy.getExecuteStrategy("DefaultIsNotNull"));
 	}
 	
 	@Override
 	public void execute() throws QualityExecption, ExecuteException, IOException {
-		//DefaultDbExecute object = (DefaultDbExecute)StrategyFactory.getInstance().createExecute(EXECUTE_STRATEGY);
-//		execute.setResourceUrl(url);
-//		execute.setArithmeticType(sqlType);
-//		execute.setDefaultDbObject(bean);		//检查对象
-		//object.execute();
+		Strategy strategy = StrategyFactory.getInstance().createStrategy(bean.getStrategy());
+		strategy.execute(bean);
 	}
 
 	@Override
-	public void setExamination(Examination bean) {
+	public void setExamination(Examination bean) throws QualityExecption {
 		this.bean = bean;
+		validateExamination(bean);
 	}
 	
-	public void setUrl(String url) {
-		this.url = url;
-	}
-	
-	public void setSqlType(String sqlType) {
-		this.sqlType = sqlType;
-	}
-
 	@Override
-	public void setExecuteStrategy(String strategy) {
-		this.EXECUTE_STRATEGY = strategy;
+	public void validateExamination(Examination bean) throws QualityExecption {
+		if(bean.getStrategy().length()<=0)bean.setStrategy(ExecuteStrategy.getExecuteStrategy(DEFAULT_STRATEGY));
+		if(bean.getClass().getName().contains(DEFAULT_VALIDATE_TYPE)||
+				bean.getClass().getName().contains(DEFAULT_VALIDATE_TYPE.toLowerCase())||
+				bean.getClass().getName().contains(DEFAULT_VALIDATE_TYPE.toUpperCase()))
+		{
+			if(bean.getResourceUrl().length()<=0) {
+				bean.setResourceUrl(ResourceUrl.getUrlType(DEFAULT_RESOURCE_URL));
+			}
+			if(bean.getSqlType().length()<=0) {
+				bean.setSqlType(ExecuteSqlType.getSqlType(DEFAULT_SQL_TYPE));
+			}
+		}
 	}
 }

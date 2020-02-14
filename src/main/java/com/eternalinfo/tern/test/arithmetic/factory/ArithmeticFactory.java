@@ -22,7 +22,7 @@ import com.eternalinfo.tern.test.exception.ExecuteException;
 public  class ArithmeticFactory {
 	protected  Logger LOG = LogManager.getLogger(this.getClass());
 	private static ArithmeticFactory factory = new ArithmeticFactory();
-	private ArithmeticFactory() {}
+	private ArithmeticFactory() {};
 	private static Map<String, Factory> arithmeticPack = new ConcurrentHashMap<String, Factory>();
 	static {
 		arithmeticPack.put("IsNotNull", IsNotNullFactory.getInstance());
