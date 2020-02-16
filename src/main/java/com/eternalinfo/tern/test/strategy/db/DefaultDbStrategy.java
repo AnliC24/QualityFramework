@@ -29,7 +29,6 @@ public class DefaultDbStrategy extends DbStrategy{
 	
 	private int sqlErrorCount = 0;
 	
-	public DefaultDbStrategy() {}
 	
 	private void executeCore() throws QualityExecption, ExecuteException {
 		transVariableToString();
@@ -71,39 +70,20 @@ public class DefaultDbStrategy extends DbStrategy{
 		}).reduce((current,next)->{return current+next;}).get();
 	}
 
-
-	@Override
-	public void setJdbcTemplate(Examination bean) throws QualityExecption {
-		if(bean != null) {
-			jdbc = new JdbcTemplate(this.bean.getJdbc());
-			if(jdbc.getDataSource() == null) {
-				throw new QualityExecption("Spring容器为空，无法获取beanName:"+this.bean.getJdbc());
-			}
-		}
-	}
-
-
 	@Override
 	public void strategy(Examination bean) throws IOException, QualityExecption, ExecuteException {	
 		executeCore();
 		LOG.info("模型:{"+bean.toString()+"} 执行检查");
 	}
 
-
-	@Override
-	public void setExamination(Examination bean) throws QualityExecption {
-		if(!(bean instanceof DefaultDbObject)) {
-			throw new QualityExecption("默认数据源执行策略不支持其他检核对象");
-		}
-		this.bean = (DefaultDbObject)bean;
-	}
 	
 	@Override
 	public void setStrategySql() throws IOException {
-		sqlProperties = Resources.getResourceAsProperties(bean.getResourceUrl());
+		this.bean = (DefaultDbObject) super.bean;
+		sqlProperties = Resources.getResourceAsProperties(this.bean.getResourceUrl());
 		if(!sqlProperties.containsKey(bean.getSqlType())) {
-			throw new ArithmeticException("请配置默认执行sql,"+"例如:"+bean.getSqlType()+"=sql");
+			throw new ArithmeticException("请配置默认执行sql,"+"例如:"+this.bean.getSqlType()+"=sql");
 		}
-		executeSql = sqlProperties.getProperty(bean.getSqlType());
+		executeSql = sqlProperties.getProperty(this.bean.getSqlType());
 	}
 }
