@@ -18,7 +18,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 )
 @JsonSubTypes({
 		@Type(value = DefaultDbObject.class,name = "db"),
-		@Type(value = FileObject.class,name = "file")
+		@Type(value = FileObject.class,name = "file"),
+		@Type(value = RangeCheck.class,name = "range")
 })
 public abstract class Examination {
 	
