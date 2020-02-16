@@ -40,7 +40,7 @@ public class RangeArithmeticTest extends BaseTest{
 		registryArithmetic();
 		registryStrategy();
 		RangeCheck bean = new RangeCheck();
-		bean.setCheckInfo(checkObject);
+		bean.setCheck(checkObject);
 		bean.setTypeArithmetic(TYPE_ARITHMETIC);
 		bean.setTypeFactory(TYPE_FACTORY);
 		ArithmeticFactory.getInstance().creator(bean);

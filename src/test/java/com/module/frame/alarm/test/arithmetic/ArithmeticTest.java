@@ -91,5 +91,4 @@ public class ArithmeticTest extends BaseTest{
 		assertEquals(ExecuteStrategy.getExecuteStrategy(TYPE_ARITHMETIC), TEST_EXECUTE_STRATEGY);
 	}
 	
-	
 }

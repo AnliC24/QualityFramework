@@ -11,8 +11,11 @@ import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 import com.eternalinfo.tern.controller.PublicController;
 import com.eternalinfo.tern.kit.AjaxResult;
 import com.eternalinfo.tern.test.arithmetic.factory.ArithmeticFactory;
+import com.eternalinfo.tern.test.arithmetic.normalization.Range;
 import com.eternalinfo.tern.test.examination.Examination;
 import com.eternalinfo.tern.test.exception.ExecuteException;
+import com.eternalinfo.tern.test.strategy.StrategyFactory;
+import com.eternalinfo.tern.test.strategy.db.RangeDbStrategy;
 
 /**
  * @author 王诚沣
@@ -24,6 +27,10 @@ import com.eternalinfo.tern.test.exception.ExecuteException;
 @RequestMapping("/quality/arithmetic")
 public class ArithmeticController extends PublicController {
 	
+	private String TYPE_FACTORY = "DataFormat";
+	private String TYPE_ARITHMETIC = "Range";
+	
+	private String STRATEGY = "RangeDbStrategy";
 	
 	/**
 	 * 	算子信息查询
@@ -87,6 +94,14 @@ public class ArithmeticController extends PublicController {
 	
 	@PostMapping("/testDataFormat")
 	public void testDataFormat(@RequestBody Examination bean) throws QualityExecption, ExecuteException, IOException {
+		ArithmeticFactory.getInstance().creator(bean);
+		assertEquals(bean, bean);
+	}
+	
+	@PostMapping("/testRange")
+	public void testRange(@RequestBody Examination bean) throws QualityExecption, ExecuteException, IOException {
+		ArithmeticFactory.getInstance().creator(TYPE_FACTORY).registry(TYPE_ARITHMETIC, new Range());
+		StrategyFactory.getInstance().registry(STRATEGY, new RangeDbStrategy());
 		ArithmeticFactory.getInstance().creator(bean);
 		assertEquals(bean, bean);
 	}
