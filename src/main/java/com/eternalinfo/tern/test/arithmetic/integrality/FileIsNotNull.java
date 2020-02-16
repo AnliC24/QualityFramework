@@ -1,7 +1,5 @@
 package com.eternalinfo.tern.test.arithmetic.integrality;
 
-import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
-import com.eternalinfo.tern.test.examination.Examination;
 
 /**
  * @author 王诚沣
@@ -11,20 +9,6 @@ import com.eternalinfo.tern.test.examination.Examination;
  */
 public class FileIsNotNull extends IsNotNull{
 	
-	private Examination bean;
 	public FileIsNotNull() {}
-	@Override
-	public void execute() throws QualityExecption {
-		LOG.info("文件类型非空检查");
-	}
-
-	@Override
-	public void setExamination(Examination bean) {
-		this.bean = bean;
-	}
-	
-	@Override
-	public void validateExamination(Examination bean) throws QualityExecption {
-	}
 	
 }

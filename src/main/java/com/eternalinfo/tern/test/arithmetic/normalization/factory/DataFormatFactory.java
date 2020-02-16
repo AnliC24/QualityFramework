@@ -47,6 +47,8 @@ public class DataFormatFactory extends Factory{
 		dataFormatPack.remove(type);
 	}
 	
+	
+	
 	public static DataFormatFactory getInstance() {
 		return factory;
 	}
@@ -58,6 +60,11 @@ public class DataFormatFactory extends Factory{
 		Arithmetic arithmetic = (Arithmetic) dataFormatPack.get(bean.getTypeArithmetic());
 		arithmetic.setExamination(bean);
 		arithmetic.execute();
+	}
+
+	@Override
+	public void registry(String type, Arithmetic arithmetic) {
+		dataFormatPack.put(type, (DataFormat)arithmetic);
 	}
 	
 }

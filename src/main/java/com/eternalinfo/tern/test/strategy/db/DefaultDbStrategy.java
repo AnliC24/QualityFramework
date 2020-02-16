@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.Properties;
 
 import org.apache.ibatis.io.Resources;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.util.StopWatch;
 
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
@@ -16,47 +14,22 @@ import com.eternalinfo.tern.jdbc.JdbcTemplate;
 import com.eternalinfo.tern.test.examination.DefaultDbObject;
 import com.eternalinfo.tern.test.examination.Examination;
 import com.eternalinfo.tern.test.exception.ExecuteException;
-import com.eternalinfo.tern.test.strategy.Strategy;
-
+import com.eternalinfo.tern.test.strategy.DbStrategy;
 /**
  * @author 王诚沣
  * @上午10:52:48
  * @description 数据源默认执行策略
  * @version
  */
-public class DefaultDbStrategy extends Strategy{
-	
-	protected  Logger LOG = LogManager.getLogger(this.getClass());
+public class DefaultDbStrategy extends DbStrategy{
 	
 	private Properties sqlProperties;
 	
-	private JdbcTemplate jdbc;
-	private String executeSql;
 	private DefaultDbObject bean;
+	
 	private int sqlErrorCount = 0;
 	
 	public DefaultDbStrategy() {}
-	
-	public JdbcTemplate getJdbc() {
-		return jdbc;
-	}
-	
-	public void setExecuteSql() throws IOException {
-		sqlProperties = Resources.getResourceAsProperties(bean.getResourceUrl());
-		if(!sqlProperties.containsKey(bean.getSqlType())) {
-			throw new ArithmeticException("请配置默认执行sql,"+"例如:"+bean.getSqlType()+"=sql");
-		}
-		executeSql = sqlProperties.getProperty(bean.getSqlType());
-	}
-	
-	@Override
-	public void execute(Examination bean) throws QualityExecption, ExecuteException, IOException {
-		this.bean = (DefaultDbObject)bean;
-		setExecuteSql();
-		this.jdbc = new JdbcTemplate(this.bean.getJdbc());
-		executeCore();
-		LOG.info("模型:{"+bean.toString()+"} 执行检查");
-	}
 	
 	private void executeCore() throws QualityExecption, ExecuteException {
 		transVariableToString();
@@ -71,7 +44,7 @@ public class DefaultDbStrategy extends Strategy{
 	
 	private void executeSql() throws ExecuteException {
 		try {
-			batchExecuteSql(this.jdbc);
+			batchExecuteSql(jdbc);
 		}catch (Exception e) {
 			throw new ExecuteException("数据源连接失败");
 		}
@@ -96,5 +69,41 @@ public class DefaultDbStrategy extends Strategy{
 			}
 			return sqlErrorCount;
 		}).reduce((current,next)->{return current+next;}).get();
+	}
+
+
+	@Override
+	public void setJdbcTemplate(Examination bean) throws QualityExecption {
+		if(bean != null) {
+			jdbc = new JdbcTemplate(this.bean.getJdbc());
+			if(jdbc.getDataSource() == null) {
+				throw new QualityExecption("Spring容器为空，无法获取beanName:"+this.bean.getJdbc());
+			}
+		}
+	}
+
+
+	@Override
+	public void strategy(Examination bean) throws IOException, QualityExecption, ExecuteException {	
+		executeCore();
+		LOG.info("模型:{"+bean.toString()+"} 执行检查");
+	}
+
+
+	@Override
+	public void setExamination(Examination bean) throws QualityExecption {
+		if(!(bean instanceof DefaultDbObject)) {
+			throw new QualityExecption("默认数据源执行策略不支持其他检核对象");
+		}
+		this.bean = (DefaultDbObject)bean;
+	}
+	
+	@Override
+	public void setStrategySql() throws IOException {
+		sqlProperties = Resources.getResourceAsProperties(bean.getResourceUrl());
+		if(!sqlProperties.containsKey(bean.getSqlType())) {
+			throw new ArithmeticException("请配置默认执行sql,"+"例如:"+bean.getSqlType()+"=sql");
+		}
+		executeSql = sqlProperties.getProperty(bean.getSqlType());
 	}
 }

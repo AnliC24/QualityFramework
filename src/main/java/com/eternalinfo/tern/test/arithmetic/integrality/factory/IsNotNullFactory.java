@@ -61,15 +61,18 @@ public class IsNotNullFactory extends Factory{
 		isNotNullPack.remove(type);
 	}
 
-	public void registry(String type, IsNotNull arithmetic) {
-		isNotNullPack.put(type, arithmetic);
-	}
+	
 	
 	public IsNotNull getIsNotNull(String type) {
 		if(!isNotNullPack.containsKey(type)) {
 			return null;
 		}
 		return isNotNullPack.get(type);
+	}
+
+	@Override
+	public void registry(String type, Arithmetic arithmetic) {
+		isNotNullPack.put(type, (IsNotNull)arithmetic);
 	}
 	
 }
