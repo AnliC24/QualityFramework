@@ -1,14 +1,9 @@
 package com.module.frame.alarm.test.arithmetic;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -16,8 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 import com.eternalinfo.tern.test.arithmetic.factory.ArithmeticFactory;
-import com.eternalinfo.tern.test.arithmetic.integrality.DefaultIsNotNull;
-import com.eternalinfo.tern.test.arithmetic.integrality.factory.IsNotNullFactory;
 import com.eternalinfo.tern.test.context.ExecuteSqlType;
 import com.eternalinfo.tern.test.context.ExecuteStrategy;
 import com.eternalinfo.tern.test.context.ResourceUrl;
@@ -41,24 +34,21 @@ public class ArithmeticTest extends BaseTest{
 	String TEST_RESOURCE_URL = "com/eternalinfo/tern/test/resource/is-not-null.properties";
 	String TEST_EXECUTE_SQL_TYPE = "defaultIsNotNull";
 	String TEST_EXECUTE_STRATEGY = "DefaultDbExecute";
-	static  List<Map<String, Object>> checkObject = new ArrayList<Map<String,Object>>();
 	
-	static {
-		Map<String, Object> aMap = new HashMap<String, Object>();
-		aMap.put("ONS_OWN", "tern_gwxy");
-		aMap.put("DMOD_EN_NAME", "tn_meta_dmod_col_info");
-		aMap.put("COL_EN_NAME", "COL_LEN");
-		checkObject.add(aMap);
-	}
 	
-	//是否可以执行对象工厂
+	/**
+	 * 	变更算子 检核对象为 抽象类属性,测试是否可以正常执行
+	 * 	变更算子execute 抽象方法 为 具体实现类 
+	 * */
 	@Test
 	public void testExaminationFactory() throws QualityExecption, ExecuteException, IOException {
 		DefaultDbObject bean = new DefaultDbObject();
-		ArithmeticFactory.getInstance().creator(bean);
+		bean.setCheck(checkObject);
 		bean.setTypeArithmetic(TYPE_ARITHMETIC);
 		bean.setTypeFactory(TYPE_FACTORY);
-		assertNotEquals(bean, bean);
+		int oldSize = bean.getCheck().get(0).size();
+		ArithmeticFactory.getInstance().creator(bean);
+		assertEquals(oldSize, bean.getCheck().get(0).size());
 	}
 	
 	//是否可以注入新增算子模块
@@ -100,4 +90,6 @@ public class ArithmeticTest extends BaseTest{
 		assertNotNull(ExecuteStrategy.getExecuteStrategy(TYPE_ARITHMETIC));
 		assertEquals(ExecuteStrategy.getExecuteStrategy(TYPE_ARITHMETIC), TEST_EXECUTE_STRATEGY);
 	}
+	
+	
 }
