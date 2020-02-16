@@ -2,9 +2,6 @@ package com.eternalinfo.tern.test.strategy;
 
 import java.io.IOException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.eternalinfo.tern.arithmetic.exception.QualityExecption;
 import com.eternalinfo.tern.jdbc.JdbcTemplate;
 import com.eternalinfo.tern.test.examination.Db;
@@ -18,9 +15,7 @@ import com.eternalinfo.tern.test.exception.ExecuteException;
  * @version
  */
 public abstract class DbStrategy extends Strategy{
-	
-	protected  Logger LOG = LogManager.getLogger(this.getClass());
-	
+		
 	protected JdbcTemplate jdbc;
 	
 	protected String executeSql;
@@ -29,20 +24,18 @@ public abstract class DbStrategy extends Strategy{
 
 	@Override
 	public void execute(Examination bean) throws QualityExecption, ExecuteException, IOException {
-		setExamination(bean);
+		vaildateExamination(bean);
 		setJdbcTemplate(bean);
 		setStrategySql();
 		strategy(bean);
 	}
 	
-	public void setExamination(Examination bean) throws QualityExecption{
+	public void vaildateExamination(Examination bean) throws QualityExecption{
 		if(!(bean instanceof Db)) {
 			throw new QualityExecption("默认数据源执行策略不支持其他检核对象");
 		}
 		this.bean = (Db)bean;
 	}
-	
-	public abstract void strategy(Examination bean) throws IOException, QualityExecption, ExecuteException;
 	
 	public void setJdbcTemplate(Examination bean) throws QualityExecption{
 		if(bean != null) {
@@ -52,6 +45,6 @@ public abstract class DbStrategy extends Strategy{
 			}
 		}
 	}
-
+	
 	public abstract void setStrategySql() throws IOException;
 }

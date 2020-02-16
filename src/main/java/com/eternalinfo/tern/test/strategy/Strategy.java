@@ -17,4 +17,5 @@ public abstract class Strategy {
 	protected  Logger LOG = LogManager.getLogger(this.getClass());
 	public abstract void execute(Examination bean) throws QualityExecption, ExecuteException, IOException;
 	
+	public abstract void strategy(Examination bean) throws IOException, QualityExecption, ExecuteException;
 }
