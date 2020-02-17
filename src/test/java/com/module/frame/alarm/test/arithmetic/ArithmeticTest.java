@@ -30,7 +30,6 @@ public class ArithmeticTest extends BaseTest{
 	String JDBC = "ORACL";
 	String TYPE_FACTORY = "IsNotNull";
 	String TYPE_ARITHMETIC = "DefaultIsNotNull";
-	String TEST_NEW_DBEXECUTE = "NewIsNotNull";
 	String TEST_RESOURCE_URL = "com/eternalinfo/tern/test/resource/is-not-null.properties";
 	String TEST_EXECUTE_SQL_TYPE = "defaultIsNotNull";
 	String TEST_EXECUTE_STRATEGY = "DefaultDbExecute";
