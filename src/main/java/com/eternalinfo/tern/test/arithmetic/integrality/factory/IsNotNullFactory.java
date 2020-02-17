@@ -61,8 +61,6 @@ public class IsNotNullFactory extends Factory{
 		isNotNullPack.remove(type);
 	}
 
-	
-	
 	public IsNotNull getIsNotNull(String type) {
 		if(!isNotNullPack.containsKey(type)) {
 			return null;

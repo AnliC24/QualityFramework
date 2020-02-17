@@ -3,6 +3,8 @@ package com.eternalinfo.tern.test.examination;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 /**
  * @author 王诚沣
@@ -19,7 +21,8 @@ public class RangeCheck extends Db{
 	public RangeCheck(String jdbc, List<Map<String, Object>> check) {
 		super(jdbc, check);
 	}
-
+	
+	@JsonProperty("RANGE_PARAMS")
 	private List<Map<String,Object>> compareParams;
 	
 	public List<Map<String, Object>> getCompareParams() {
