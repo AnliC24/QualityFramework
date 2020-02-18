@@ -15,6 +15,7 @@ import com.eternalinfo.tern.test.arithmetic.normalization.Range;
 import com.eternalinfo.tern.test.examination.Examination;
 import com.eternalinfo.tern.test.exception.ExecuteException;
 import com.eternalinfo.tern.test.strategy.StrategyFactory;
+import com.eternalinfo.tern.test.strategy.db.DataFormatDbStrategy;
 import com.eternalinfo.tern.test.strategy.db.RangeDbStrategy;
 
 /**
@@ -94,6 +95,7 @@ public class ArithmeticController extends PublicController {
 	
 	@PostMapping("/testDataFormat")
 	public void testDataFormat(@RequestBody Examination bean) throws QualityExecption, ExecuteException, IOException {
+		StrategyFactory.getInstance().registry("DataFormatStrategy",  new DataFormatDbStrategy());
 		ArithmeticFactory.getInstance().creator(bean);
 		assertEquals(bean, bean);
 	}
@@ -105,5 +107,7 @@ public class ArithmeticController extends PublicController {
 		ArithmeticFactory.getInstance().creator(bean);
 		assertEquals(bean, bean);
 	}
+	
+	
 	
 }
