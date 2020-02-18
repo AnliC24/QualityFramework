@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import com.eternalinfo.tern.test.examination.RangeCheck;
+import com.eternalinfo.tern.test.standard.ReferenceStandard;
 import com.eternalinfo.tern.test.strategy.DbStrategy;
 
 /**
@@ -12,7 +13,7 @@ import com.eternalinfo.tern.test.strategy.DbStrategy;
  * @description	取值范围执行策略
  * @version 2020/02/16
  */
-public class RangeDbStrategy extends DbStrategy{
+public class RangeDbStrategy extends DbStrategy implements ReferenceStandard{
 	
 	private RangeCheck bean;
 	
@@ -47,7 +48,14 @@ public class RangeDbStrategy extends DbStrategy{
 		return sql.toString();
 	}
 	
-	private String[] getCompareData(Object params) {
+	
+	public void appendBeanParams(String compareValueName,String value) {
+		for(Map<String, Object> item:this.bean.getCheck()) {
+			item.put(compareValueName, value);
+		}
+	}
+
+	public String[] getCompareData(Object params) {
 		String[] values = null;
 		if("STD".equals(params.toString())) {
 			//取标准接口的值
@@ -55,11 +63,5 @@ public class RangeDbStrategy extends DbStrategy{
 			values = params.toString().split(",");
 		}
 		return values;
-	}
-	
-	private void appendBeanParams(String compareValueName,String value) {
-		for(Map<String, Object> item:this.bean.getCheck()) {
-			item.put(compareValueName, value);
-		}
 	}
 }
